@@ -15,8 +15,8 @@ eval $(ssh-agent -s)
 ## without extra base64 encoding.
 ## https://gitlab.com/gitlab-examples/ssh-private-key/issues/1#note_48526556
 ##
-echo "$SSH_PRIVATE_KEY"
-echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+echo $SSH_PRIVATE_KEY
+echo $SSH_PRIVATE_KEY | tr -d '\r' | ssh-add - > /dev/null
 
 ##
 ## Create the SSH directory and give it the right permissions

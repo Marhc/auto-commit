@@ -25,20 +25,22 @@ jobs:
           npm run build
           #
           # Method #1 from Gitlab
-          which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )
-          eval $(ssh-agent -s)
-          echo "$SSH_PRIVATE_KEY"
-          echo "$SSH_PRIVATE_KEY" | ssh-add - > /dev/null
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts
+          # which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )
+          # eval $(ssh-agent -s)
+          # echo "$SSH_PRIVATE_KEY"
+          # echo "$SSH_PRIVATE_KEY" | ssh-add - > /dev/null
+          # mkdir -p ~/.ssh
+          # chmod 700 ~/.ssh
+          # ssh-keyscan github.com >> ~/.ssh/known_hosts
+          # chmod 644 ~/.ssh/known_hosts
           #
           # Method #2 by Matthias Pigulla @ https://www.webfactory.de/blog/use-ssh-key-for-private-repositories-in-github-actions
           # mkdir -p ~/.ssh
           # ssh-keyscan github.com >> ~/.ssh/known_hosts
           # ssh-agent -a $SSH_AUTH_SOCK > /dev/null
           # ssh-add - <<< " $"
+          echo $SSH_PRIVATE_KEY
+          ssh-add - <<< "${SSH_PRIVATE_KEY}"
         env:
           CI: true
           REPO_NAME: auto-commit

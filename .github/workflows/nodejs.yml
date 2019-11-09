@@ -23,6 +23,7 @@ jobs:
         run: |
           npm ci
           npm run build
+          npm run deploy
           #
           # Method #1 from Gitlab
           # which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )

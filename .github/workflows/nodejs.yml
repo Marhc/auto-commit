@@ -16,31 +16,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-          # SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: npm install and build
         run: |
           npm ci
           npm run build
           npm run deploy
-          #
-          # Method #1 from Gitlab
-          # which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )
-          # eval $(ssh-agent -s)
-          # echo "$SSH_PRIVATE_KEY" | ssh-add - > /dev/null
-          # mkdir -p ~/.ssh
-          # chmod 700 ~/.ssh
-          # ssh-keyscan github.com >> ~/.ssh/known_hosts
-          # chmod 644 ~/.ssh/known_hosts
-          #
-          # Method #2 by Matthias Pigulla @ https://www.webfactory.de/blog/use-ssh-key-for-private-repositories-in-github-actions
-          # mkdir -p ~/.ssh
-          # ssh-keyscan github.com >> ~/.ssh/known_hosts
-          # ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-          # ssh-add - <<< " $"
-          #
-          # Method #3 by edaemon @ https://github.community/t5/GitHub-Actions/Github-Actions-CI-how-to-use-store-deploy-key-to-download-from/td-p/29584
-          # eval "$(ssh-agent -s)"
-          # ssh-add - <<< "${SSH_PRIVATE_KEY}"
         env:
           CI: true
           REPO_NAME: auto-commit

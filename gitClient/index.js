@@ -19,8 +19,6 @@ const userName = process.env.USER_NAME;
 const userEmail = process.env.USER_EMAIL;
 const userToken = process.env.USER_TOKEN;
 
-console.log(userToken);
-
 // Set up GitHub url like this so no manual entry of user pass needed
 const repoUrl = `https://${repoUser}:${userToken}@${repoHost}/${repoUser}/${repoName}.git`;
 

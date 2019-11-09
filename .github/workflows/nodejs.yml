@@ -21,6 +21,8 @@ jobs:
           npm ci
           npm run build
           npm run inject:key
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         env:
           CI: true
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}

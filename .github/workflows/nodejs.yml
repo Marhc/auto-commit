@@ -9,8 +9,8 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x]
-    env:
-      SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+    # env:
+    #  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
 
     steps:
       - uses: actions/checkout@v1
@@ -23,18 +23,21 @@ jobs:
         run: |
           npm ci
           npm run build
-          # mkdir -p ~/.ssh
-          # echo $SSH_AUTH_SOCK
-          # ssh-keyscan github.com >> ~/.ssh/known_hosts
-          # ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-          # ssh-add - <<< " $"
+          #
+          # Method #1 from Gitlab
           which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )
           eval $(ssh-agent -s)
-          echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+          echo "$SSH_PRIVATE_KEY" | ssh-add - > /dev/null
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
+          #
+          # Method #2 by Matthias Pigulla @ https://www.webfactory.de/blog/use-ssh-key-for-private-repositories-in-github-actions
+          # mkdir -p ~/.ssh
+          # ssh-keyscan github.com >> ~/.ssh/known_hosts
+          # ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          # ssh-add - <<< " $"
         env:
           CI: true
           REPO_NAME: auto-commit

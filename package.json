@@ -8,7 +8,8 @@
   "description": "An experimentation with scheduled CI builds using Github Actions",
   "scripts": {
     "build": "node .",
-    "deploy": "node ./gitClient"
+    "deploy": "node ./gitClient",
+    "inject:key": "./helpers/injectSshKey.sh"
   },
   "dependencies": {
     "chance": "^1.1.3",

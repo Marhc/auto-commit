@@ -10,8 +10,6 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x]
-    # env:
-    #  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
 
     steps:
       - uses: actions/checkout@v1

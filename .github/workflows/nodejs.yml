@@ -23,6 +23,7 @@ jobs:
           npm ci
           npm run build
           mkdir -p ~/.ssh
+          echo $SSH_AUTH_SOCK
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
           ssh-add - <<< " $"

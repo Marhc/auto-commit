@@ -1,2 +1,4 @@
-# auto-commit
-An experimentation with scheduled ci builds using Github Actions
+auto-commit
+===========
+
+An experimentation with scheduled CI builds using Github Actions

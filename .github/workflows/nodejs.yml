@@ -23,3 +23,10 @@ jobs:
           npm run inject:key
         env:
           CI: true
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REPO_NAME: auto-commit
+          REPO_HOST: github.com
+          REPO_USER: Marhc
+          DEPLOY_BRANCH: master
+          USER_NAME: marhc
+          USER_EMAIL: marciohbc@gmail.com

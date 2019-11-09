@@ -1,6 +1,8 @@
 name: Node CI
 
-on: [push]
+on:
+  schedule:
+    - cron: "* 22 * * *"
 
 jobs:
   build:
@@ -28,5 +30,5 @@ jobs:
           REPO_USER: Marhc
           REPO_BRANCH: master
           USER_NAME: marhc
-          USER_EMAIL: marciohbc@gmail.com
+          USER_EMAIL: ${{ secrets.USER_EMAIL }}
           USER_TOKEN: ${{ secrets.GITHUB_TOKEN }}

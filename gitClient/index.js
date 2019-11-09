@@ -35,7 +35,7 @@ simpleGit.add(path.resolve(__dirname, "../", "dataset", "*.csv"), err => {
   if (err) {
     console.log("adding files failed:", err);
   } else {
-    console.log("No erros when add files to stage.");
+    console.log("No errors adding files to stage.");
   }
 });
 
@@ -44,7 +44,7 @@ simpleGit.commit("Scheduled build at " + Date(), err => {
   if (err) {
     console.log("failed commmit.");
   } else {
-    console.log("No erros when commit changes.");
+    console.log("No errors committing changes.");
   }
 });
 
@@ -52,7 +52,7 @@ simpleGit.silent(true).checkoutLocalBranch(repoBranch, err => {
   if (err) {
     console.log("failed to create " + repoBranch + " branch.");
   } else {
-    console.log("Created " + repoBranch + " branch.");
+    console.log("A " + repoBranch + " branch has been created.");
   }
 });
 
@@ -61,6 +61,6 @@ simpleGit.push("origin", repoBranch, { "--set-upstream": null }, err => {
   if (err) {
     console.log("repo push failed:", err);
   } else {
-    console.log("No erros when push changes");
+    console.log("No errors pushing changes");
   }
 });

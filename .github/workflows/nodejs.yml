@@ -5,7 +5,6 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.actor != 'Marhc'
 
     strategy:
       matrix:
@@ -50,4 +49,4 @@ jobs:
           REPO_BRANCH: master
           USER_NAME: marhc
           USER_EMAIL: marciohbc@gmail.com
-          USER_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+          USER_TOKEN: ${{ secrets.GITHUB_TOKEN }}

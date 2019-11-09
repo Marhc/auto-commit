@@ -23,11 +23,18 @@ jobs:
         run: |
           npm ci
           npm run build
+          # mkdir -p ~/.ssh
+          # echo $SSH_AUTH_SOCK
+          # ssh-keyscan github.com >> ~/.ssh/known_hosts
+          # ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          # ssh-add - <<< " $"
+          which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )
+          eval $(ssh-agent -s)
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
           mkdir -p ~/.ssh
-          echo $SSH_AUTH_SOCK
+          chmod 700 ~/.ssh
           ssh-keyscan github.com >> ~/.ssh/known_hosts
-          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-          ssh-add - <<< " $"
+          chmod 644 ~/.ssh/known_hosts
         env:
           CI: true
           REPO_NAME: auto-commit

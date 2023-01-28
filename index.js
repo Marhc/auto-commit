@@ -4,7 +4,7 @@ const { pause } = require("./helpers");
 
 const faker = require("faker/locale/pt_BR");
 const chance = require("chance").Chance();
-const nanoid = require("nanoid");
+const { nanoid } = require("nanoid");
 
 (async () => {
   const recordsNumber = faker.random.number({ min: 1, max: 100 });

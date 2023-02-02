@@ -32,3 +32,4 @@ jobs:
           USER_NAME: marhc
           USER_EMAIL: ${{ secrets.USER_EMAIL }}
           USER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEBUG: simple-git

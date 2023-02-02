@@ -3,9 +3,6 @@ require("../envLoader")();
 
 const path = require("path");
 
-// Simple Git with Promise for handling success and failure
-const simpleGit = require("simple-git")(path.resolve(__dirname, "../"));
-
 // Repo name and provider
 const repoName = process.env.REPO_NAME;
 const repoHost = process.env.REPO_HOST;
@@ -22,42 +19,47 @@ const userToken = process.env.USER_TOKEN;
 // Set up GitHub url like this so no manual entry of user pass needed
 const repoUrl = `https://${repoUser}:${userToken}@${repoHost}/${repoUser}/${repoName}.git`;
 
+
+// Simple Git with Promise for handling success and failure
+const simpleGit = require("simple-git")
+simpleGit(path.resolve(__dirname, "../"), { maxConcurrentProcesses: 1 })
+
 // add local git config like repoUser and email
-simpleGit.addConfig("user.email", userEmail);
-simpleGit.addConfig("user.name", userName);
+.addConfig("user.email", userEmail)
+.addConfig("user.name", userName)
 
 // Add remore repo url as origin to repo
-simpleGit.removeRemote("origin");
-simpleGit.addRemote("origin", repoUrl);
+.removeRemote("origin")
+.addRemote("origin", repoUrl)
 
 // Add all files for commit
-simpleGit.add(path.resolve(__dirname, "../", "dataset", "*.csv"), err => {
+.add(path.resolve(__dirname, "../", "dataset", "*.csv"), err => {
   if (err) {
     console.log("adding files failed:", err);
   } else {
     console.log("No errors adding files to stage.");
   }
-});
+})
 
 // Commit files as Initial Commit
-simpleGit.commit("Scheduled build at " + Date(), err => {
+.commit("Scheduled build at " + Date(), err => {
   if (err) {
     console.log("failed commmit.");
   } else {
     console.log("No errors committing changes.");
   }
-});
+})
 
-simpleGit.silent(true).checkoutLocalBranch(repoBranch, err => {
+.silent(true).checkoutLocalBranch(repoBranch, err => {
   if (err) {
     console.log("failed to create " + repoBranch + " branch.");
   } else {
     console.log("A " + repoBranch + " branch has been created.");
   }
-});
+})
 
 // Finally push to online repository
-simpleGit.push("origin", repoBranch, { "--set-upstream": null }, err => {
+.push("origin", repoBranch, { "--set-upstream": null }, err => {
   if (err) {
     console.log("repo push failed:", err);
   } else {

@@ -1,7 +1,4 @@
-const debug = require('debug');
 const simpleGit = require("simple-git")
-
-debug.enable('simple-git,simple-git:*');
 
 // Use dotenv, if found
 require("../envLoader")();
@@ -53,7 +50,7 @@ simpleGit(path.resolve(__dirname, "../"))
     }
   })
 
-  .silent(true).checkoutLocalBranch(repoBranch, err => {
+  .checkoutLocalBranch(repoBranch, err => {
     if (err) {
       console.log("failed to create " + repoBranch + " branch.");
     } else {

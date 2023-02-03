@@ -1,3 +1,5 @@
+const simpleGit = require("simple-git")
+
 // Use dotenv, if found
 require("../envLoader")();
 
@@ -20,7 +22,6 @@ const userToken = process.env.USER_TOKEN;
 const repoUrl = `https://${repoUser}:${userToken}@${repoHost}/${repoUser}/${repoName}.git`;
 
 // Simple Git with Promise for handling success and failure
-const simpleGit = require("simple-git")
 simpleGit(path.resolve(__dirname, "../"))
 
 // add local git config like repoUser and email

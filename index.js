@@ -7,7 +7,7 @@ const chance = require("chance").Chance();
 const { nanoid } = require("nanoid");
 
 (async () => {
-  const recordsNumber = faker.random.number({ min: 1, max: 100 });
+  const recordsNumber = faker.random.number({ min: 1, max: 20 });
 
   for (let i = 0; i <= recordsNumber; i++) {
     const firstName = faker.name.firstName();

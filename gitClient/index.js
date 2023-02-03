@@ -1,4 +1,7 @@
+const debug = require('debug');
 const simpleGit = require("simple-git")
+
+debug.enable('simple-git,simple-git:*');
 
 // Use dotenv, if found
 require("../envLoader")();
@@ -18,51 +21,51 @@ const userName = process.env.USER_NAME;
 const userEmail = process.env.USER_EMAIL;
 const userToken = process.env.USER_TOKEN;
 
-// Set up GitHub url like this so no manual entry of user pass needed
+// Set up GitHub url so no manual entry for password is needed
 const repoUrl = `https://${repoUser}:${userToken}@${repoHost}/${repoUser}/${repoName}.git`;
 
-// Simple Git with Promise for handling success and failure
+// Simple Git as Promise for handling success and failure
 simpleGit(path.resolve(__dirname, "../"))
 
-// add local git config like repoUser and email
-.addConfig("user.email", userEmail)
-.addConfig("user.name", userName)
+  // add user config
+  .addConfig("user.email", userEmail)
+  .addConfig("user.name", userName)
 
-// Add remore repo url as origin to repo
-.removeRemote("origin")
-.addRemote("origin", repoUrl)
+  // Add/remove url as origin
+  .removeRemote("origin")
+  .addRemote("origin", repoUrl)
 
-// Add all files for commit
-.add(path.resolve(__dirname, "../", "dataset", "*.csv"), err => {
-  if (err) {
-    console.log("adding files failed:", err);
-  } else {
-    console.log("No errors adding files to stage.");
-  }
-})
+  // Add all files for commit
+  .add(path.resolve(__dirname, "../", "dataset", "*.csv"), err => {
+    if (err) {
+      console.log("adding files failed:", err);
+    } else {
+      console.log("No errors adding files to stage.");
+    }
+  })
 
-// Commit files as Initial Commit
-.commit("Scheduled build at " + Date(), err => {
-  if (err) {
-    console.log("failed commmit.");
-  } else {
-    console.log("No errors committing changes.");
-  }
-})
+  // Commit files
+  .commit("Scheduled build at " + Date(), err => {
+    if (err) {
+      console.log("failed commmit:", err);
+    } else {
+      console.log("No errors committing changes.");
+    }
+  })
 
-.silent(true).checkoutLocalBranch(repoBranch, err => {
-  if (err) {
-    console.log("failed to create " + repoBranch + " branch.");
-  } else {
-    console.log("A " + repoBranch + " branch has been created.");
-  }
-})
+  .silent(true).checkoutLocalBranch(repoBranch, err => {
+    if (err) {
+      console.log("failed to create " + repoBranch + " branch.");
+    } else {
+      console.log("A " + repoBranch + " branch has been created.");
+    }
+  })
 
-// Finally push to online repository
-.push("origin", repoBranch, { "--set-upstream": null }, err => {
-  if (err) {
-    console.log("repo push failed:", err);
-  } else {
-    console.log("No errors pushing changes");
-  }
-});
+  // Finally push to remote repo
+  .push("origin", repoBranch, { "--set-upstream": null }, err => {
+    if (err) {
+      console.log("repo push failed:", err);
+    } else {
+      console.log("No errors pushing changes");
+    }
+  });

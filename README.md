@@ -1,4 +1,4 @@
 auto-commit
 ===========
 
-An experience with scheduled CI builds using Github Actions
+An experiment with scheduled CI builds using Github Actions

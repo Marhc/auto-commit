@@ -19,10 +19,9 @@ const userToken = process.env.USER_TOKEN;
 // Set up GitHub url like this so no manual entry of user pass needed
 const repoUrl = `https://${repoUser}:${userToken}@${repoHost}/${repoUser}/${repoName}.git`;
 
-
 // Simple Git with Promise for handling success and failure
 const simpleGit = require("simple-git")
-simpleGit(path.resolve(__dirname, "../"), { maxConcurrentProcesses: 1 })
+simpleGit(path.resolve(__dirname, "../"))
 
 // add local git config like repoUser and email
 .addConfig("user.email", userEmail)
